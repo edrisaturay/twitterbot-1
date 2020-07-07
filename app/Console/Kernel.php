@@ -6,6 +6,7 @@ use App\Console\Commands\DMFollower;
 use App\Console\Commands\Scheduled;
 use App\Console\Commands\Archive;
 use App\Console\Commands\ChatCommand;
+use App\Console\Commands\Test;
 use App\Console\Commands\UserInfo;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -24,6 +25,7 @@ class Kernel extends ConsoleKernel
         Scheduled::class,
         DMFollower::class,
         UserInfo::class,
+        Test::class,
     ];
 
     /**
@@ -49,6 +51,8 @@ class Kernel extends ConsoleKernel
 
             $schedule->command('twitterbot:dmfollower')
                 ->everyMinute();
+        }else if(App::environment('local')){
+            $schedule->command('twitterbot:chat')->everyMinute();
         }
     }
 

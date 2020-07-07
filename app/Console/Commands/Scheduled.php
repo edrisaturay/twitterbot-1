@@ -7,6 +7,7 @@ use App\Schedule;
 use App\Setting;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Twitter;
 
 class Scheduled extends Command
@@ -59,7 +60,9 @@ class Scheduled extends Command
                     $twitter_dg->send($schedule->text);
                     $schedule->sent = true;
                     $schedule->save();
-                } catch (\Exception $e) {}
+                } catch (\Exception $e) {
+                    Log::emergency($e);
+                }
             }
         }
     }
